@@ -10,16 +10,31 @@ public class Student {
     @Column(name = "SNAME")
     private String studentName;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name = "stud_fk")
-    private StudentDetails studentDetails;
+    //------------------------------------------------------------------------------------
+//    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//    @JoinColumn(name = "stud_fk")
+//    private StudentDetails studentDetails;
+//
+//    public StudentDetails getStudentDetail() {
+//        return studentDetails;
+//    }
+//
+//    public void setStudentDetail(StudentDetails studentDetail) {
+//        this.studentDetails = studentDetail;
+//    }
 
-    public StudentDetails getStudentDetail() {
-        return studentDetails;
+    //----------------------------------------------------------------------------------
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "college_fk")
+    private  StudentCollege studentCollege;
+
+    public StudentCollege getStudentCollege() {
+        return studentCollege;
     }
 
-    public void setStudentDetail(StudentDetails studentDetail) {
-        this.studentDetails = studentDetail;
+    public void setStudentCollege(StudentCollege studentCollege) {
+        this.studentCollege = studentCollege;
     }
 
     public int getStudentId() {

@@ -3,18 +3,19 @@ package org.example;
 import jakarta.persistence.Persistence;
 import org.example.entities.Student;
 
+import org.example.entities.StudentCollege;
 import org.example.entities.StudentDetails;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.mapping.Array;
-import org.hibernate.mapping.List;
 
 import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import java.util.List;
 import java.util.Set;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -26,7 +27,9 @@ public class Main {
         //config.configure();
         //config.configure();
         config.addAnnotatedClass(org.example.entities.Student.class);
-        config.addAnnotatedClass(org.example.entities.StudentDetails.class);
+       // config.addAnnotatedClass(org.example.entities.StudentDetails.class);
+
+        config.addAnnotatedClass(org.example.entities.StudentCollege.class);
 
 
         SessionFactory sf = config.buildSessionFactory();
@@ -34,20 +37,60 @@ public class Main {
 
         try{
             s.beginTransaction();
+//------------------------------------------------------------------------------
+//            StudentDetails kamaliDetails = new StudentDetails();
+//            kamaliDetails.setZipCode(789012);
+//
+//            Student kamali = new Student();
+//            kamali.setStudentName("Kamali");
+//            kamali.setStudentDetail(kamaliDetails);
+//
+//
+//            kamaliDetails.setStudent(kamali);
+//
+//            s.persist(kamali);
+//
+//            s.persist(kamaliDetails);
+//-------------------------------------------------------------------------
 
-            StudentDetails kamaliDetails = new StudentDetails();
-            kamaliDetails.setZipCode(789012);
+            Student yashvi = new Student();
+            Student raam = new Student();
+            Student seeta = new Student();
 
-            Student kamali = new Student();
-            kamali.setStudentName("Kamali");
-            kamali.setStudentDetail(kamaliDetails);
+            yashvi.setStudentName("Yashvi");
+            raam.setStudentName("Raam");
+            seeta.setStudentName("Seeta");
+
+            StudentCollege ddu = new StudentCollege();
+            StudentCollege iitb = new StudentCollege();
+
+            ddu.setCollege_name("DDU");
+            iitb.setCollege_name("IIT-B");
 
 
-            kamaliDetails.setStudent(kamali);
+            yashvi.setStudentCollege(ddu);
+            raam.setStudentCollege(iitb);
+            seeta.setStudentCollege(iitb);
 
-            s.persist(kamali);
 
-            s.persist(kamaliDetails);
+            //add list to implement bidirectional --- StudentCollege -- check also
+
+            List dduStudents = new ArrayList();
+            List iitbStudents = new ArrayList();
+
+            dduStudents.add(yashvi);
+            iitbStudents.add(raam);
+            iitbStudents.add(seeta);
+
+            ddu.setStudents(dduStudents);
+            iitb.setStudents(iitbStudents);
+
+//            s.persist(yashvi);
+//            s.persist(raam);
+//            s.persist(seeta);
+
+            s.persist(ddu);
+            s.persist(iitb);
 
             s.getTransaction().commit();
         }
