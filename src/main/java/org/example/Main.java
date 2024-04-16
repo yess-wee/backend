@@ -35,19 +35,19 @@ public class Main {
         try{
             s.beginTransaction();
 
-            StudentDetails yashDetails = new StudentDetails();
-            yashDetails.setZipCode(123456);
+            StudentDetails kamaliDetails = new StudentDetails();
+            kamaliDetails.setZipCode(789012);
 
-            Student yash = new Student();
-            yash.setStudentName("Yash");
-            yash.setStudentDetail(yashDetails);
+            Student kamali = new Student();
+            kamali.setStudentName("Kamali");
+            kamali.setStudentDetail(kamaliDetails);
 
 
-            yashDetails.setStudent(yash);
+            kamaliDetails.setStudent(kamali);
 
-            s.persist(yash);
+            s.persist(kamali);
 
-            s.persist(yashDetails);
+            s.persist(kamaliDetails);
 
             s.getTransaction().commit();
         }
